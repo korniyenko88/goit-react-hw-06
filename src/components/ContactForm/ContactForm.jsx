@@ -1,9 +1,13 @@
 import styles from './ContactForm.module.css';
 import { ErrorMessage, Formik, Field, Form } from 'formik';
-
+import { useDispatch } from 'react-redux';
+import { nanoid } from 'nanoid';
+import { addContact } from '../../redux/contactsSlice';
+import { useId } from 'react';
 import * as Yup from 'yup';
 
 const INITIAL_VALUES = {
+  id: '',
   name: '',
   number: '',
 };
@@ -24,9 +28,18 @@ const addContactShape = Yup.object({
     .max(50, "Number can't be longer than 50 characters"),
 });
 
-const ContactForm = ({ onAddContact }) => {
+const ContactForm = () => {
+  const nameInputId = useId();
+  const numberInputId = useId();
+  const dispatch = useDispatch();
   const handleSubmit = (values, actions) => {
-    onAddContact(values);
+    const contact = {
+      ...values,
+      id: nanoid(),
+    };
+
+    const action = addContact(contact);
+    dispatch(action);
     actions.resetForm();
   };
   return (
@@ -37,16 +50,16 @@ const ContactForm = ({ onAddContact }) => {
         onSubmit={handleSubmit}
       >
         <Form className={styles.form}>
-          <label className={styles.formname}>
+          <label htmlFor={nameInputId} className={styles.formname}>
             <span>Name</span>
-            <Field className={styles.input} name="name" type="text" />
+            <Field className={styles.input} name="name" type="text" id={nameInputId} />
             <ErrorMessage
               name="name"
               component="span"
               className={styles.error}
             />
           </label>
-          <label className={styles.formname}>
+          <label htmlFor={numberInputId} className={styles.formname}>
             <span>Number</span>
             <Field className={styles.input} name="number" type="text" />
             <ErrorMessage
