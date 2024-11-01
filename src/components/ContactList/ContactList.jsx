@@ -13,8 +13,8 @@ const ContactList = () => {
   );
   return (
     <ul className={styles.list}>
-      {selectContacts.map(cont => (
-        <Contact key={cont.id} data={cont} />
+      {selectContacts.map(contact => (
+        <Contact key={contact.id} data={contact} />
       ))}
     </ul>
   );
