@@ -50,7 +50,7 @@ const ContactForm = () => {
         onSubmit={handleSubmit}
       >
         <Form className={styles.form}>
-          <label htmlFor={nameInputId} className={styles.formname}>
+          <label className={styles.formname}>
             <span>Name</span>
             <Field className={styles.input} name="name" type="text" id={nameInputId} />
             <ErrorMessage
@@ -59,7 +59,7 @@ const ContactForm = () => {
               className={styles.error}
             />
           </label>
-          <label htmlFor={numberInputId} className={styles.formname}>
+          <label className={styles.formname}>
             <span>Number</span>
             <Field className={styles.input} name="number" type="text" />
             <ErrorMessage
